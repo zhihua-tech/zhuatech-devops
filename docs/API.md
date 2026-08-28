@@ -17,8 +17,13 @@
 | GET | `/sla-summary` | SLA、逾期、风险和人员工作量 |
 | POST | `/domain/decision` | 执行企业研发效能与DevOps平台专属领域规则 |
 | GET/POST | `/enterprise/controls` | 企业控制项查询与幂等创建 |
+| GET | `/enterprise/workbench` | 按组织与账期查询治理驾驶舱 |
+| GET | `/enterprise/period-status` | 查询组织账期锁定状态 |
+| POST | `/enterprise/controls/bulk-submit` | 原子批量提交控制项 |
 | POST | `/enterprise/controls/{id}/submit` | 提交复核 |
+| POST | `/admin/enterprise/controls/bulk-review` | 管理员原子批量审批或驳回 |
 | POST | `/admin/enterprise/controls/{id}/review` | 管理员审批或驳回 |
+| PUT | `/admin/enterprise/period-lock` | 管理员锁定或解锁组织账期 |
 | POST | `/enterprise/controls/{id}/documents` | 登记附件哈希及存储元数据 |
 | POST | `/enterprise/controls/{id}/complete` | 凭证完整后办结 |
 | POST | `/admin/enterprise/controls/{id}/sync` | 登记外部系统回执 |

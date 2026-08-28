@@ -6,6 +6,7 @@ import java.time.*;
 @Entity @Table(name="business_records", uniqueConstraints=@UniqueConstraint(columnNames="recordNo"))
 public class BusinessRecord {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
+    @Version private long version;
     @Column(nullable=false, length=40) private String recordNo;
     @Column(nullable=false, length=30) private String module;
     @Column(nullable=false, length=120) private String title;
@@ -37,5 +38,6 @@ public class BusinessRecord {
     public String getTitle(){return title;} public String getBusinessParty(){return businessParty;} public String getOwner(){return owner;}
     public String getStatus(){return status;} public BigDecimal getAmount(){return amount;} public int getQuantity(){return quantity;}
     public LocalDate getDueDate(){return dueDate;} public String getRiskLevel(){return riskLevel;} public String getDescription(){return description;}
-    public LocalDateTime getCreatedAt(){return createdAt;} public LocalDateTime getUpdatedAt(){return updatedAt;}
+    public long getVersion(){return version;} public LocalDateTime getCreatedAt(){return createdAt;}
+    public LocalDateTime getUpdatedAt(){return updatedAt;}
 }
