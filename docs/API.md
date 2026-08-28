@@ -16,6 +16,12 @@
 | GET | `/records/export.csv` | 导出 UTF-8 CSV |
 | GET | `/sla-summary` | SLA、逾期、风险和人员工作量 |
 | POST | `/domain/decision` | 执行企业研发效能与DevOps平台专属领域规则 |
+| GET/POST | `/devops/releases` | 发布候选查询与创建 |
+| GET | `/devops/releases/{id}/gate` | 执行测试、安全和回滚质量门禁 |
+| POST | `/devops/releases/{id}/submit` | 提交发布审批 |
+| POST | `/admin/devops/releases/{id}/approve` | 管理员批准发布 |
+| POST | `/devops/releases/{id}/deploy` | 校验制品哈希并部署 |
+| POST | `/devops/releases/{id}/rollback` | 按批准方案执行回滚 |
 | GET/POST | `/enterprise/controls` | 企业控制项查询与幂等创建 |
 | GET | `/enterprise/workbench` | 按组织与账期查询治理驾驶舱 |
 | GET | `/enterprise/period-status` | 查询组织账期锁定状态 |
