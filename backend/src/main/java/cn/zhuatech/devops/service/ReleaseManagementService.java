@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
+import java.time.*;
 
 @Service
 public class ReleaseManagementService {
@@ -25,7 +26,8 @@ public class ReleaseManagementService {
         if(releases.findByReleaseNo(request.releaseNo()).isPresent())throw conflict("发布单号已存在");
         var item=releases.save(new ReleaseCandidate(request.releaseNo(),request.applicationCode(),
             request.commitSha().toLowerCase(Locale.ROOT),request.artifactDigest().toLowerCase(Locale.ROOT),
-            request.environment(),request.testPassRate(),request.criticalVulnerabilities(),request.rollbackVersion()));
+            request.environment(),request.testPassRate(),request.criticalVulnerabilities(),request.rollbackVersion(),
+            request.changeTicket(),request.scheduledAt(),request.emergencyApproval()));
         audit("创建发布候选",item,request.applicationCode());return item;
     }
 
@@ -35,6 +37,14 @@ public class ReleaseManagementService {
         if(item.getCriticalVulnerabilities()>0){score-=60;blockers.add("存在严重安全漏洞");}
         if(item.getRollbackVersion().isBlank()){score-=40;blockers.add("未配置可验证的回滚版本");}
         if(!Set.of("STAGING","PRODUCTION").contains(item.getEnvironment())){score-=20;blockers.add("发布环境不受控");}
+        if("PRODUCTION".equals(item.getEnvironment())&&!item.getChangeTicket().matches("CHG-[A-Z0-9-]{4,40}")){
+            score-=50;blockers.add("生产发布缺少有效变更单号");
+        }
+        var day=item.getScheduledAt().getDayOfWeek();
+        if("PRODUCTION".equals(item.getEnvironment())
+                && Set.of(DayOfWeek.SATURDAY,DayOfWeek.SUNDAY).contains(day)&&!item.isEmergencyApproval()){
+            score-=50;blockers.add("计划时间处于周末冻结窗口且未取得紧急放行");
+        }
         return new GateResult(blockers.isEmpty()?"READY":"BLOCKED",Math.max(0,score),
             item.getReleaseNo(),List.copyOf(blockers));
     }
@@ -88,7 +98,9 @@ public class ReleaseManagementService {
         @Pattern(regexp="(?i)sha256:[0-9a-f]{64}") String artifactDigest,
         @Pattern(regexp="STAGING|PRODUCTION") String environment,
         @DecimalMin("0") @DecimalMax("100") double testPassRate,@PositiveOrZero int criticalVulnerabilities,
-        @NotBlank @Size(max=60) String rollbackVersion){}
+        @NotBlank @Size(max=60) String rollbackVersion,
+        @NotBlank @Size(max=50) String changeTicket,@NotNull LocalDateTime scheduledAt,
+        boolean emergencyApproval){}
     public record DeployRequest(@NotBlank @Pattern(regexp="(?i)sha256:[0-9a-f]{64}") String artifactDigest,
         @NotBlank @Pattern(regexp="ROLLING|BLUE_GREEN|CANARY") String strategy,boolean healthCheckPassed){}
     public record RollbackRequest(@NotBlank String targetVersion,@NotBlank @Size(max=300) String reason){}

@@ -17,16 +17,21 @@ public class ReleaseCandidate {
     private int criticalVulnerabilities;
     @Column(nullable=false,length=30) private String state;
     @Column(nullable=false,length=60) private String rollbackVersion;
+    @Column(nullable=false,length=50) private String changeTicket;
+    @Column(nullable=false) private LocalDateTime scheduledAt;
+    private boolean emergencyApproval;
     @Version private long version;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     protected ReleaseCandidate(){}
     public ReleaseCandidate(String releaseNo,String applicationCode,String commitSha,String artifactDigest,
-            String environment,double testPassRate,int criticalVulnerabilities,String rollbackVersion){
+            String environment,double testPassRate,int criticalVulnerabilities,String rollbackVersion,
+            String changeTicket,LocalDateTime scheduledAt,boolean emergencyApproval){
         this.releaseNo=releaseNo;this.applicationCode=applicationCode;this.commitSha=commitSha;
         this.artifactDigest=artifactDigest;this.environment=environment;this.testPassRate=testPassRate;
-        this.criticalVulnerabilities=criticalVulnerabilities;this.rollbackVersion=rollbackVersion;this.state="DRAFT";
+        this.criticalVulnerabilities=criticalVulnerabilities;this.rollbackVersion=rollbackVersion;
+        this.changeTicket=changeTicket;this.scheduledAt=scheduledAt;this.emergencyApproval=emergencyApproval;this.state="DRAFT";
     }
     @PrePersist void created(){createdAt=updatedAt=LocalDateTime.now();}
     @PreUpdate void updated(){updatedAt=LocalDateTime.now();}
@@ -38,6 +43,8 @@ public class ReleaseCandidate {
     public String getArtifactDigest(){return artifactDigest;} public String getEnvironment(){return environment;}
     public double getTestPassRate(){return testPassRate;} public int getCriticalVulnerabilities(){return criticalVulnerabilities;}
     public String getState(){return state;} public String getRollbackVersion(){return rollbackVersion;}
+    public String getChangeTicket(){return changeTicket;} public LocalDateTime getScheduledAt(){return scheduledAt;}
+    public boolean isEmergencyApproval(){return emergencyApproval;}
     public long getVersion(){return version;} public LocalDateTime getCreatedAt(){return createdAt;}
     public LocalDateTime getUpdatedAt(){return updatedAt;}
 }
