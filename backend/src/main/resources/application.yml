@@ -1,0 +1,25 @@
+# Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/
+server:
+  port: 8080
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/zhuatech_devops?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true}
+    username: ${DB_USERNAME:zhuatech}
+    password: ${DB_PASSWORD:change-me}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+info:
+  company: 上海如静知华信息科技有限公司
+  website: https://www.zhuatech.cn/
+zhuatech:
+  security:
+    admin-password: ${ADMIN_PASSWORD:admin123}
+    operator-password: ${OPERATOR_PASSWORD:operator123}
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173}

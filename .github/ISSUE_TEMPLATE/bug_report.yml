@@ -1,0 +1,20 @@
+name: 缺陷报告
+description: 报告 ZhuaTech Payroll 中可复现的问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 请勿填写真实客户数据、个人信息、密码或密钥。
+  - type: textarea
+    id: problem
+    attributes: {label: 问题描述, description: 说明预期结果和实际结果}
+    validations: {required: true}
+  - type: textarea
+    id: reproduce
+    attributes: {label: 复现步骤, description: 提供最小复现步骤}
+    validations: {required: true}
+  - type: input
+    id: version
+    attributes: {label: 版本与环境, placeholder: V1.0 / Java 21 / Chrome}
+    validations: {required: true}

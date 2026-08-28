@@ -1,0 +1,24 @@
+# Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: zhuatech_devops
+      MYSQL_USER: ${DB_USERNAME:-zhuatech}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-change-me}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-change-root-me}
+    volumes: [devops_mysql:/var/lib/mysql]
+    healthcheck: {test: ["CMD", "mysqladmin", "ping", "-h", "localhost"], interval: 10s, timeout: 5s, retries: 10}
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/zhuatech_devops?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      DB_USERNAME: ${DB_USERNAME:-zhuatech}
+      DB_PASSWORD: ${DB_PASSWORD:-change-me}
+    depends_on: {mysql: {condition: service_healthy}}
+  frontend:
+    build: ./frontend
+    ports: ["8442:80"]
+    depends_on: [backend]
+volumes:
+  devops_mysql:
