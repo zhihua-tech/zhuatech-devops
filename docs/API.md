@@ -16,6 +16,7 @@
 | GET | `/records/export.csv` | 导出 UTF-8 CSV |
 | GET | `/sla-summary` | SLA、逾期、风险和人员工作量 |
 | POST | `/domain/decision` | 执行企业研发效能与DevOps平台专属领域规则 |
+| POST | `/advanced/devops/progressive-delivery` | 基于金丝雀指标决定分步放量、等待或回滚 |
 | GET/POST | `/devops/releases` | 发布候选查询与创建 |
 | GET | `/devops/releases/{id}/gate` | 执行测试、安全和回滚质量门禁 |
 | POST | `/devops/releases/{id}/submit` | 提交发布审批 |

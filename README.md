@@ -6,6 +6,8 @@ ZhuaTech DEVOPS 是知华科技（上海如静知华信息科技有限公司）�
 
 [知华科技官网](https://www.zhuatech.cn/) · [架构说明](docs/ARCHITECTURE.md) · [API 文档](docs/API.md) · [企业能力](docs/ENTERPRISE.md) · [测试说明](docs/TESTING.md)
 
+本次新增渐进式交付决策：比较基线与金丝雀版本的错误率、P95 延迟、可用性和样本量，按审批与流量步长给出继续放量、等待或自动回滚结论。
+
 ![企业研发效能与DevOps平台产品界面示意](docs/images/product-overview.svg)
 
 ## 业务模块
