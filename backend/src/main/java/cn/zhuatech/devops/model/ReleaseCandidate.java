@@ -4,6 +4,9 @@ package cn.zhuatech.devops.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Entity
 @Table(name="release_candidates",uniqueConstraints=@UniqueConstraint(columnNames="releaseNo"))
 public class ReleaseCandidate {
@@ -24,7 +27,13 @@ public class ReleaseCandidate {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     protected ReleaseCandidate(){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public ReleaseCandidate(String releaseNo,String applicationCode,String commitSha,String artifactDigest,
             String environment,double testPassRate,int criticalVulnerabilities,String rollbackVersion,
             String changeTicket,LocalDateTime scheduledAt,boolean emergencyApproval){
@@ -33,18 +42,84 @@ public class ReleaseCandidate {
         this.criticalVulnerabilities=criticalVulnerabilities;this.rollbackVersion=rollbackVersion;
         this.changeTicket=changeTicket;this.scheduledAt=scheduledAt;this.emergencyApproval=emergencyApproval;this.state="DRAFT";
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PrePersist void created(){createdAt=updatedAt=LocalDateTime.now();}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PreUpdate void updated(){updatedAt=LocalDateTime.now();}
-    public void submit(){state="PENDING_APPROVAL";} public void approve(){state="APPROVED";}
-    public void deploy(){state="DEPLOYED";} public void rollback(){state="ROLLED_BACK";}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public void submit(){state="PENDING_APPROVAL";} /**
+                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                     */
+public void approve(){state="APPROVED";}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public void deploy(){state="DEPLOYED";} /**
+                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                             */
+public void rollback(){state="ROLLED_BACK";}
 
-    public Long getId(){return id;} public String getReleaseNo(){return releaseNo;}
-    public String getApplicationCode(){return applicationCode;} public String getCommitSha(){return commitSha;}
-    public String getArtifactDigest(){return artifactDigest;} public String getEnvironment(){return environment;}
-    public double getTestPassRate(){return testPassRate;} public int getCriticalVulnerabilities(){return criticalVulnerabilities;}
-    public String getState(){return state;} public String getRollbackVersion(){return rollbackVersion;}
-    public String getChangeTicket(){return changeTicket;} public LocalDateTime getScheduledAt(){return scheduledAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public Long getId(){return id;} /**
+                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                     */
+public String getReleaseNo(){return releaseNo;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getApplicationCode(){return applicationCode;} /**
+                                                                 * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                 */
+public String getCommitSha(){return commitSha;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getArtifactDigest(){return artifactDigest;} /**
+                                                               * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                               */
+public String getEnvironment(){return environment;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public double getTestPassRate(){return testPassRate;} /**
+                                                           * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                           */
+public int getCriticalVulnerabilities(){return criticalVulnerabilities;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getState(){return state;} /**
+                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                             */
+public String getRollbackVersion(){return rollbackVersion;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getChangeTicket(){return changeTicket;} /**
+                                                           * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                           */
+public LocalDateTime getScheduledAt(){return scheduledAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public boolean isEmergencyApproval(){return emergencyApproval;}
-    public long getVersion(){return version;} public LocalDateTime getCreatedAt(){return createdAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public long getVersion(){return version;} /**
+                                               * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                               */
+public LocalDateTime getCreatedAt(){return createdAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public LocalDateTime getUpdatedAt(){return updatedAt;}
 }

@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @SpringBootTest @AutoConfigureMockMvc
 class EnterpriseControlApiTests {
     @Autowired MockMvc mvc;
@@ -19,6 +22,9 @@ class EnterpriseControlApiTests {
          "assignee":"王专员","riskLevel":"正常","dueDate":"2026-09-15","externalSystem":"ERP",
          "externalRef":"","idempotencyKey":"idem-devops-enterprise-001"}
         """;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test void enterpriseControlSupportsIdempotentEndToEndWorkflow() throws Exception {
         var first=mvc.perform(post("/api/enterprise/controls").with(httpBasic("operator","operator123"))
             .contentType(MediaType.APPLICATION_JSON).content(BODY))
@@ -49,6 +55,9 @@ class EnterpriseControlApiTests {
             .andExpect(status().isOk()).andExpect(jsonPath("$.data.syncState").value("SYNCED"))
             .andExpect(jsonPath("$.data.externalRef").value("ERP-202608-001"));
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test void invalidPeriodAndChecksumAreRejected() throws Exception {
         mvc.perform(post("/api/enterprise/controls").with(httpBasic("operator","operator123"))
             .contentType(MediaType.APPLICATION_JSON).content(BODY.replace("2026-08","2026-13").replace("ENT-DEVOPS-001","ENT-DEVOPS-BAD")))
@@ -61,6 +70,9 @@ class EnterpriseControlApiTests {
                 {"fileName":"bad.pdf","mediaType":"application/pdf","sizeBytes":10,"sha256":"1234","storageKey":"bad.pdf"}
                 """)).andExpect(status().isBadRequest());
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test void summaryAndFiltersAreAvailable() throws Exception {
         mvc.perform(get("/api/enterprise/summary").with(httpBasic("operator","operator123")))
             .andExpect(status().isOk()).andExpect(jsonPath("$.data.total").isNumber())
@@ -68,6 +80,9 @@ class EnterpriseControlApiTests {
         mvc.perform(get("/api/enterprise/controls?state=DRAFT").with(httpBasic("operator","operator123")))
             .andExpect(status().isOk()).andExpect(jsonPath("$.data").isArray());
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private long idOf(MvcResult result) throws Exception {
         var matcher=Pattern.compile("\\\"id\\\":(\\d+)").matcher(result.getResponse().getContentAsString());
         Assertions.assertTrue(matcher.find());return Long.parseLong(matcher.group(1));

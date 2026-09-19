@@ -2,6 +2,9 @@
 package cn.zhuatech.devops.model;
 import jakarta.persistence.*;
 import java.time.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Entity
 @Table(name="enterprise_controls", uniqueConstraints={
     @UniqueConstraint(columnNames="controlNo"),
@@ -27,7 +30,13 @@ public class EnterpriseControl {
     @Version private long version;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     protected EnterpriseControl(){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public EnterpriseControl(String controlNo,String organizationCode,String fiscalPeriod,String controlType,
             String subjectNo,String subjectName,String assignee,String riskLevel,LocalDate dueDate,
             String externalSystem,String externalRef,String idempotencyKey){
@@ -36,22 +45,103 @@ public class EnterpriseControl {
         this.state="DRAFT";this.riskLevel=riskLevel;this.dueDate=dueDate;this.externalSystem=externalSystem;
         this.externalRef=externalRef;this.idempotencyKey=idempotencyKey;this.syncState="NOT_QUEUED";
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PrePersist void created(){createdAt=updatedAt=LocalDateTime.now();}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PreUpdate void updated(){updatedAt=LocalDateTime.now();}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void submit(){state="PENDING_REVIEW";}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void approve(){state="APPROVED";}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void reject(){state="REJECTED";}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void complete(){state="COMPLETED";}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void addDocument(){documentCount++;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void sync(String state,String reference){syncState=state;if(reference!=null&&!reference.isBlank())externalRef=reference;}
-    public Long getId(){return id;} public String getControlNo(){return controlNo;}
-    public String getOrganizationCode(){return organizationCode;} public String getFiscalPeriod(){return fiscalPeriod;}
-    public String getControlType(){return controlType;} public String getSubjectNo(){return subjectNo;}
-    public String getSubjectName(){return subjectName;} public String getAssignee(){return assignee;}
-    public String getState(){return state;} public String getRiskLevel(){return riskLevel;}
-    public LocalDate getDueDate(){return dueDate;} public String getExternalSystem(){return externalSystem;}
-    public String getExternalRef(){return externalRef;} public String getIdempotencyKey(){return idempotencyKey;}
-    public String getSyncState(){return syncState;} public int getDocumentCount(){return documentCount;}
-    public long getVersion(){return version;} public LocalDateTime getCreatedAt(){return createdAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public Long getId(){return id;} /**
+                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                     */
+public String getControlNo(){return controlNo;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getOrganizationCode(){return organizationCode;} /**
+                                                                   * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                   */
+public String getFiscalPeriod(){return fiscalPeriod;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getControlType(){return controlType;} /**
+                                                         * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                         */
+public String getSubjectNo(){return subjectNo;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getSubjectName(){return subjectName;} /**
+                                                         * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                         */
+public String getAssignee(){return assignee;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getState(){return state;} /**
+                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                             */
+public String getRiskLevel(){return riskLevel;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public LocalDate getDueDate(){return dueDate;} /**
+                                                    * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                    */
+public String getExternalSystem(){return externalSystem;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getExternalRef(){return externalRef;} /**
+                                                         * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                         */
+public String getIdempotencyKey(){return idempotencyKey;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getSyncState(){return syncState;} /**
+                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                     */
+public int getDocumentCount(){return documentCount;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public long getVersion(){return version;} /**
+                                               * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                               */
+public LocalDateTime getCreatedAt(){return createdAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public LocalDateTime getUpdatedAt(){return updatedAt;}
 }

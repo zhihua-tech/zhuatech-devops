@@ -14,11 +14,17 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class DevopsEnterpriseGovernanceApiTests {
     @Autowired MockMvc mvc;
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void batchWorkflowIsAtomicAuditableAndFilterable() throws Exception {
         long first = create("GOV-DEVOPS-001", "gov-devops-001", "ZH-BJ", "2026-11");
@@ -56,6 +62,9 @@ class DevopsEnterpriseGovernanceApiTests {
             .andExpect(jsonPath("$.data.workloadByOrganization['ZH-BJ']").value(2));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void fiscalPeriodLockPreventsBusinessMutationUntilAdminUnlocks() throws Exception {
         String lockBody = """
@@ -95,6 +104,9 @@ class DevopsEnterpriseGovernanceApiTests {
             .andExpect(status().isOk());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void batchGovernanceRejectsInvalidOrUnauthorizedOperations() throws Exception {
         mvc.perform(post("/api/enterprise/controls/bulk-submit")
@@ -117,6 +129,9 @@ class DevopsEnterpriseGovernanceApiTests {
             .andExpect(status().isForbidden());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private long create(String no, String key, String organization, String period) throws Exception {
         return idOf(mvc.perform(post("/api/enterprise/controls")
                 .with(httpBasic("operator", "operator123"))
@@ -125,6 +140,9 @@ class DevopsEnterpriseGovernanceApiTests {
             .andExpect(status().isOk()).andReturn());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private String body(String no, String key, String organization, String period) {
         return "{\"controlNo\":\"" + no + "\",\"organizationCode\":\"" + organization
             + "\",\"fiscalPeriod\":\"" + period + "\",\"controlType\":\"GOVERNANCE\","
@@ -133,6 +151,9 @@ class DevopsEnterpriseGovernanceApiTests {
             + "\"externalSystem\":\"ERP\",\"externalRef\":\"\",\"idempotencyKey\":\"" + key + "\"}";
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private long idOf(MvcResult result) throws Exception {
         var matcher = Pattern.compile("\\\"id\\\":(\\d+)").matcher(
             result.getResponse().getContentAsString());

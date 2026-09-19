@@ -3,6 +3,9 @@ package cn.zhuatech.devops.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Entity @Table(name="business_records", uniqueConstraints=@UniqueConstraint(columnNames="recordNo"))
 public class BusinessRecord {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
@@ -20,24 +23,87 @@ public class BusinessRecord {
     @Column(length=500) private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     protected BusinessRecord() {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public BusinessRecord(String recordNo, String module, String title, String businessParty, String owner,
             String status, BigDecimal amount, int quantity, LocalDate dueDate, String riskLevel, String description) {
         this.recordNo=recordNo; this.module=module; this.title=title; this.businessParty=businessParty;
         this.owner=owner; this.status=status; this.amount=amount; this.quantity=quantity; this.dueDate=dueDate;
         this.riskLevel=riskLevel; this.description=description;
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PrePersist void createTime(){createdAt=updatedAt=LocalDateTime.now();}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PreUpdate void updateTime(){updatedAt=LocalDateTime.now();}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void update(String module,String title,String party,String owner,BigDecimal amount,int quantity,LocalDate dueDate,String risk,String description){
         this.module=module; this.title=title; this.businessParty=party; this.owner=owner; this.amount=amount;
         this.quantity=quantity; this.dueDate=dueDate; this.riskLevel=risk; this.description=description;
     }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public void transition(String status){this.status=status;}
-    public Long getId(){return id;} public String getRecordNo(){return recordNo;} public String getModule(){return module;}
-    public String getTitle(){return title;} public String getBusinessParty(){return businessParty;} public String getOwner(){return owner;}
-    public String getStatus(){return status;} public BigDecimal getAmount(){return amount;} public int getQuantity(){return quantity;}
-    public LocalDate getDueDate(){return dueDate;} public String getRiskLevel(){return riskLevel;} public String getDescription(){return description;}
-    public long getVersion(){return version;} public LocalDateTime getCreatedAt(){return createdAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public Long getId(){return id;} /**
+                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                     */
+public String getRecordNo(){return recordNo;} /**
+                                                                                   * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                                   */
+public String getModule(){return module;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getTitle(){return title;} /**
+                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                             */
+public String getBusinessParty(){return businessParty;} /**
+                                                                                                     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                                                     */
+public String getOwner(){return owner;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public String getStatus(){return status;} /**
+                                               * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                               */
+public BigDecimal getAmount(){return amount;} /**
+                                                                                             * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                                             */
+public int getQuantity(){return quantity;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public LocalDate getDueDate(){return dueDate;} /**
+                                                    * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                    */
+public String getRiskLevel(){return riskLevel;} /**
+                                                                                                    * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                                                    */
+public String getDescription(){return description;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
+    public long getVersion(){return version;} /**
+                                               * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                               */
+public LocalDateTime getCreatedAt(){return createdAt;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public LocalDateTime getUpdatedAt(){return updatedAt;}
 }

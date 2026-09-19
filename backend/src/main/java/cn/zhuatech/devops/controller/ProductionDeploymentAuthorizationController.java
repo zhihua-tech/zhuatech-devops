@@ -9,11 +9,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @RestController
 @RequestMapping("/api/enterprise/devops")
 public class ProductionDeploymentAuthorizationController {
     private final ProductionDeploymentAuthorizationService service;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public ProductionDeploymentAuthorizationController(ProductionDeploymentAuthorizationService service) { this.service = service; }
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PostMapping("/production-deployment-authorization")
     public ApiResponse<ProductionDeploymentAuthorizationService.Assessment> assess(
             @Valid @RequestBody ProductionDeploymentAuthorizationService.Request request) {

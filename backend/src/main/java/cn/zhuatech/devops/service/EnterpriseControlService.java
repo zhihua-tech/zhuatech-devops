@@ -13,6 +13,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class EnterpriseControlService {
     private static final int MAX_BATCH_SIZE = 100;
@@ -21,6 +24,9 @@ public class EnterpriseControlService {
     private final AuditLogRepository audits;
     private final SystemSettingRepository settings;
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public EnterpriseControlService(EnterpriseControlRepository controls, ControlDocumentRepository documents,
             AuditLogRepository audits, SystemSettingRepository settings) {
         this.controls = controls;
@@ -29,10 +35,16 @@ public class EnterpriseControlService {
         this.settings = settings;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public List<EnterpriseControl> list(String state, String organizationCode, String fiscalPeriod) {
         return filtered(state, organizationCode, fiscalPeriod);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public Summary summary(String organizationCode, String fiscalPeriod) {
         var all = filtered(null, organizationCode, fiscalPeriod);
         Map<String, Long> states = new LinkedHashMap<>(), sync = new LinkedHashMap<>();
@@ -45,6 +57,9 @@ public class EnterpriseControlService {
         return new Summary(all.size(), overdue, states, sync);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public Workbench workbench(String organizationCode, String fiscalPeriod) {
         LocalDate today = LocalDate.now();
         var all = filtered(null, organizationCode, fiscalPeriod);
@@ -65,6 +80,9 @@ public class EnterpriseControlService {
             percent(completed, all.size()), percent(synced, syncEligible), byOrganization);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public EnterpriseControl create(CreateRequest request) {
         var existing = controls.findByIdempotencyKey(request.idempotencyKey());
@@ -79,6 +97,9 @@ public class EnterpriseControlService {
         return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public EnterpriseControl submit(Long id) {
         var item = get(id);
@@ -89,6 +110,9 @@ public class EnterpriseControlService {
         return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public BatchResult bulkSubmit(BatchRequest request) {
         var items = loadBatch(request.ids());
@@ -103,6 +127,9 @@ public class EnterpriseControlService {
         return result(items, "PENDING_REVIEW");
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public EnterpriseControl review(Long id, ReviewRequest request) {
         var item = get(id);
@@ -113,6 +140,9 @@ public class EnterpriseControlService {
         return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public BatchResult bulkReview(BulkReviewRequest request) {
         if (!Set.of("APPROVE", "REJECT").contains(request.decision())) {
@@ -130,6 +160,9 @@ public class EnterpriseControlService {
         return result(items, "APPROVE".equals(request.decision()) ? "APPROVED" : "REJECTED");
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public EnterpriseControl complete(Long id) {
         var item = get(id);
@@ -141,6 +174,9 @@ public class EnterpriseControlService {
         return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public ControlDocument registerDocument(Long id, DocumentRequest request) {
         var item = get(id);
@@ -155,11 +191,17 @@ public class EnterpriseControlService {
         return doc;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public List<ControlDocument> documents(Long id) {
         get(id);
         return documents.findByControlIdOrderByCreatedAtDesc(id);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public EnterpriseControl sync(Long id, SyncRequest request) {
         var item = get(id);
@@ -171,6 +213,9 @@ public class EnterpriseControlService {
         return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public PeriodStatus setPeriodLock(PeriodLockRequest request) {
         String key = periodKey(request.organizationCode(), request.fiscalPeriod());
@@ -183,11 +228,17 @@ public class EnterpriseControlService {
         return new PeriodStatus(request.organizationCode(), request.fiscalPeriod(), request.locked());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public PeriodStatus periodStatus(String organizationCode, String fiscalPeriod) {
         validatePeriod(organizationCode, fiscalPeriod);
         return new PeriodStatus(organizationCode, fiscalPeriod, isPeriodLocked(organizationCode, fiscalPeriod));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private List<EnterpriseControl> filtered(String state, String organizationCode, String fiscalPeriod) {
         return controls.findAllByOrderByUpdatedAtDesc().stream()
             .filter(item -> blank(state) || state.equals(item.getState()))
@@ -196,6 +247,9 @@ public class EnterpriseControlService {
             .toList();
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private List<EnterpriseControl> loadBatch(List<Long> ids) {
         if (ids == null || ids.isEmpty() || ids.size() > MAX_BATCH_SIZE) {
             throw bad("批量操作数量必须在 1 到 " + MAX_BATCH_SIZE + " 之间");
@@ -209,39 +263,63 @@ public class EnterpriseControlService {
         return unique.stream().map(indexed::get).toList();
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void applyReview(EnterpriseControl item, String decision) {
         if ("APPROVE".equals(decision)) item.approve();
         else if ("REJECT".equals(decision)) item.reject();
         else throw bad("复核决定仅支持 APPROVE 或 REJECT");
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private BatchResult result(List<EnterpriseControl> items, String state) {
         return new BatchResult(items.stream().map(EnterpriseControl::getId).toList(), items.size(), state);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private EnterpriseControl get(Long id) {
         return controls.findById(id).orElseThrow(() ->
             new ResponseStatusException(HttpStatus.NOT_FOUND, "企业控制项不存在"));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void ensurePeriodOpen(EnterpriseControl item) {
         ensurePeriodOpen(item.getOrganizationCode(), item.getFiscalPeriod());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void ensurePeriodOpen(String organizationCode, String fiscalPeriod) {
         if (isPeriodLocked(organizationCode, fiscalPeriod)) throw conflict("当前组织账期已锁定，禁止业务变更");
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private boolean isPeriodLocked(String organizationCode, String fiscalPeriod) {
         return settings.findById(periodKey(organizationCode, fiscalPeriod))
             .map(item -> "LOCKED".equals(item.getSettingValue())).orElse(false);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private String periodKey(String organizationCode, String fiscalPeriod) {
         validatePeriod(organizationCode, fiscalPeriod);
         return "period.lock." + organizationCode + "." + fiscalPeriod;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void validatePeriod(String organizationCode, String fiscalPeriod) {
         if (blank(organizationCode) || fiscalPeriod == null
                 || !fiscalPeriod.matches("\\d{4}-(0[1-9]|1[0-2])")) {
@@ -249,39 +327,66 @@ public class EnterpriseControlService {
         }
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private boolean isOpen(EnterpriseControl item) {
         return !Set.of("COMPLETED", "REJECTED").contains(item.getState());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private double percent(long numerator, long denominator) {
         return denominator == 0 ? 0 : Math.round(numerator * 10000d / denominator) / 100d;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private boolean blank(String value) {
         return value == null || value.isBlank();
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void requireState(EnterpriseControl item, String state, String message) {
         if (!state.equals(item.getState())) throw conflict(message);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private ResponseStatusException conflict(String message) {
         return new ResponseStatusException(HttpStatus.CONFLICT, message);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private ResponseStatusException bad(String message) {
         return new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private String operator() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         return auth == null ? "system" : auth.getName();
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void audit(String action, EnterpriseControl item, String detail) {
         audits.save(new AuditLog("ENTERPRISE", action, item.getControlNo(), operator(), detail));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record CreateRequest(
         @NotBlank @Size(max=40) String controlNo,
         @NotBlank @Size(max=40) String organizationCode,
@@ -296,24 +401,54 @@ public class EnterpriseControlService {
         @Size(max=100) String externalRef,
         @NotBlank @Size(max=80) String idempotencyKey) {}
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record ReviewRequest(@NotBlank String decision, @Size(max=300) String remark) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record BatchRequest(@NotEmpty @Size(max=100) List<@Positive Long> ids, @Size(max=300) String remark) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record BulkReviewRequest(@NotEmpty @Size(max=100) List<@Positive Long> ids,
         @NotBlank String decision, @NotBlank @Size(max=300) String remark) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record PeriodLockRequest(@NotBlank @Size(max=40) String organizationCode,
         @NotBlank @Pattern(regexp="\\d{4}-(0[1-9]|1[0-2])") String fiscalPeriod,
         boolean locked, @NotBlank @Size(max=300) String reason) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record DocumentRequest(@NotBlank @Size(max=160) String fileName,
         @NotBlank @Size(max=100) String mediaType, @Positive long sizeBytes,
         @NotBlank @Pattern(regexp="(?i)[0-9a-f]{64}") String sha256,
         @NotBlank @Size(max=120) String storageKey) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record SyncRequest(boolean success, @Size(max=100) String externalRef,
         @Size(max=300) String message) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Summary(long total, long overdue, Map<String, Long> states,
         Map<String, Long> syncStates) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Workbench(long total, long open, long overdue, long dueSoon,
         long evidenceMissing, long highRisk, long syncFailed, double completionRate,
         double syncSuccessRate, Map<String, Long> workloadByOrganization) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record BatchResult(List<Long> ids, int processed, String resultingState) {}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record PeriodStatus(String organizationCode, String fiscalPeriod, boolean locked) {}
 }

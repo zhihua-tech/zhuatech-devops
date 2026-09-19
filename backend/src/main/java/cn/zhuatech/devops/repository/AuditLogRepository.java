@@ -3,4 +3,10 @@ package cn.zhuatech.devops.repository;
 import cn.zhuatech.devops.model.AuditLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
-public interface AuditLogRepository extends JpaRepository<AuditLog,Long>{List<AuditLog> findTop100ByOrderByOccurredAtDesc();}
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
+public interface AuditLogRepository extends JpaRepository<AuditLog,Long>{/**
+                                                                          * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                                                          */
+List<AuditLog> findTop100ByOrderByOccurredAtDesc();}

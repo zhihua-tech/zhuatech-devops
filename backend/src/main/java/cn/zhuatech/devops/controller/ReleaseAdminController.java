@@ -8,12 +8,21 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @RestController
 @RequestMapping("/api/admin/devops/releases")
 @Validated
 public class ReleaseAdminController {
     private final ReleaseManagementService service;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public ReleaseAdminController(ReleaseManagementService service){this.service=service;}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PostMapping("/{id}/approve") ApiResponse<ReleaseCandidate> approve(@PathVariable Long id,
         @RequestParam @NotBlank String remark){return ApiResponse.ok(service.approve(id,remark));}
 }

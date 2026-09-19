@@ -12,15 +12,27 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 import java.time.*;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class ReleaseManagementService {
     private final ReleaseCandidateRepository releases;private final AuditLogRepository audits;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public ReleaseManagementService(ReleaseCandidateRepository releases,AuditLogRepository audits){
         this.releases=releases;this.audits=audits;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public List<ReleaseCandidate> list(){return releases.findAllByOrderByUpdatedAtDesc();}
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public ReleaseCandidate create(CreateRequest request){
         if(releases.findByReleaseNo(request.releaseNo()).isPresent())throw conflict("发布单号已存在");
@@ -31,6 +43,9 @@ public class ReleaseManagementService {
         audit("创建发布候选",item,request.applicationCode());return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public GateResult gate(Long id){
         var item=get(id);List<String> blockers=new ArrayList<>();int score=100;
         if(item.getTestPassRate()<95){score-=35;blockers.add("测试通过率低于95%");}
@@ -49,6 +64,9 @@ public class ReleaseManagementService {
             item.getReleaseNo(),List.copyOf(blockers));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public ReleaseCandidate submit(Long id){
         var item=get(id);require(item,"DRAFT","只有草稿可以提交审批");
@@ -56,12 +74,18 @@ public class ReleaseManagementService {
         item.submit();audit("提交发布审批",item,"质量门禁通过");return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public ReleaseCandidate approve(Long id,String remark){
         var item=get(id);require(item,"PENDING_APPROVAL","只有待审批发布可以批准");
         item.approve();audit("批准发布",item,remark);return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public ReleaseCandidate deploy(Long id,DeployRequest request){
         var item=get(id);require(item,"APPROVED","仅已批准发布允许部署");
@@ -70,6 +94,9 @@ public class ReleaseManagementService {
         item.deploy();audit("生产部署",item,request.strategy()+" · 健康检查通过");return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Transactional
     public ReleaseCandidate rollback(Long id,RollbackRequest request){
         var item=get(id);require(item,"DEPLOYED","仅已部署版本允许回滚");
@@ -77,6 +104,9 @@ public class ReleaseManagementService {
         item.rollback();audit("版本回滚",item,request.reason());return item;
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public Dashboard dashboard(){
         long total=releases.count(),pending=releases.countByState("PENDING_APPROVAL"),
             deployed=releases.countByState("DEPLOYED"),rolledBack=releases.countByState("ROLLED_BACK");
@@ -84,15 +114,30 @@ public class ReleaseManagementService {
         return new Dashboard(total,pending,deployed,rolledBack,blocked);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private ReleaseCandidate get(Long id){return releases.findById(id).orElseThrow(()->
         new ResponseStatusException(HttpStatus.NOT_FOUND,"发布候选不存在"));}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void require(ReleaseCandidate item,String state,String message){if(!state.equals(item.getState()))throw conflict(message);}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private ResponseStatusException conflict(String message){return new ResponseStatusException(HttpStatus.CONFLICT,message);}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private void audit(String action,ReleaseCandidate item,String detail){
         var auth=SecurityContextHolder.getContext().getAuthentication();
         audits.save(new AuditLog("RELEASE",action,item.getReleaseNo(),auth==null?"system":auth.getName(),detail));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record CreateRequest(@NotBlank @Size(max=40) String releaseNo,@NotBlank @Size(max=60) String applicationCode,
         @Pattern(regexp="(?i)[0-9a-f]{40}") String commitSha,
         @Pattern(regexp="(?i)sha256:[0-9a-f]{64}") String artifactDigest,
@@ -101,9 +146,21 @@ public class ReleaseManagementService {
         @NotBlank @Size(max=60) String rollbackVersion,
         @NotBlank @Size(max=50) String changeTicket,@NotNull LocalDateTime scheduledAt,
         boolean emergencyApproval){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record DeployRequest(@NotBlank @Pattern(regexp="(?i)sha256:[0-9a-f]{64}") String artifactDigest,
         @NotBlank @Pattern(regexp="ROLLING|BLUE_GREEN|CANARY") String strategy,boolean healthCheckPassed){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record RollbackRequest(@NotBlank String targetVersion,@NotBlank @Size(max=300) String reason){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record GateResult(String decision,int score,String releaseNo,List<String> blockers){}
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public record Dashboard(long total,long pendingApproval,long deployed,long rolledBack,long blocked){}
 }

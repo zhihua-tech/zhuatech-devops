@@ -4,7 +4,13 @@ package cn.zhuatech.devops.config;
 import org.junit.jupiter.api.*;
 import org.springframework.mock.env.MockEnvironment;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 class ProductionSafetyConfigTests {
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void productionProfileRejectsMissingSecretsAndLocalOrigins() {
         var environment = new MockEnvironment()

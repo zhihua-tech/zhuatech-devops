@@ -6,12 +6,21 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import java.util.*;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Configuration
 @Profile("prod")
 public class ProductionSafetyConfig {
     private final Environment environment;
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     public ProductionSafetyConfig(Environment environment) { this.environment = environment; }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @PostConstruct
     void verifyProductionSecrets() {
         Map<String, String> unsafe = new LinkedHashMap<>();

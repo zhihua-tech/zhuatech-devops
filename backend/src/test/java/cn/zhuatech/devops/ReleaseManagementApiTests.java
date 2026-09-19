@@ -13,12 +13,18 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class ReleaseManagementApiTests {
     @Autowired MockMvc mvc;
     private static final String DIGEST="sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void releasePassesGateApprovalDeploymentAndControlledRollback() throws Exception {
         long id=create("REL-DOMAIN-001",99.5,0,DIGEST);
@@ -42,6 +48,9 @@ class ReleaseManagementApiTests {
             .andExpect(status().isOk()).andExpect(jsonPath("$.data.state").value("ROLLED_BACK"));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void qualityAndSecurityGateBlockUnsafeRelease() throws Exception {
         long id=create("REL-DOMAIN-BLOCKED",70,3,DIGEST);
@@ -54,6 +63,9 @@ class ReleaseManagementApiTests {
             .andExpect(status().isOk()).andExpect(jsonPath("$.data.blocked").isNumber());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void deploymentRejectsArtifactDriftAndFailedHealthCheck() throws Exception {
         long id=create("REL-DOMAIN-DRIFT",100,0,DIGEST);
@@ -71,6 +83,9 @@ class ReleaseManagementApiTests {
             .andExpect(status().isConflict());
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     @Test
     void productionFreezeWindowRequiresEmergencyApproval() throws Exception {
         long blocked=createAt("REL-FREEZE-BLOCKED",100,0,DIGEST,"2026-08-29T10:00:00",false);
@@ -82,10 +97,16 @@ class ReleaseManagementApiTests {
             .andExpect(status().isOk()).andExpect(jsonPath("$.data.decision").value("READY"));
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private long create(String no,double passRate,int vulnerabilities,String digest) throws Exception {
         return createAt(no,passRate,vulnerabilities,digest,"2026-08-28T10:00:00",false);
     }
 
+    /**
+     * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+     */
     private long createAt(String no,double passRate,int vulnerabilities,String digest,String scheduledAt,
             boolean emergencyApproval) throws Exception {
         var result=mvc.perform(post("/api/devops/releases").with(httpBasic("operator","operator123"))

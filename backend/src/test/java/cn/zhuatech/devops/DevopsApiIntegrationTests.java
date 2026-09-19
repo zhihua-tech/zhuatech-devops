@@ -2,13 +2,40 @@
 package cn.zhuatech.devops;
 import org.junit.jupiter.api.*;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.boot.test.context.SpringBootTest;import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;import org.springframework.http.MediaType;import org.springframework.test.web.servlet.*;import java.util.regex.Pattern;
 import static org.hamcrest.Matchers.containsString;import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @SpringBootTest @AutoConfigureMockMvc class DevopsApiIntegrationTests { @Autowired MockMvc mvc;
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void metadataSecurityCatalogAndDashboardWork() throws Exception {mvc.perform(get("/api/public/about")).andExpect(status().isOk()).andExpect(jsonPath("$.data.company").value("上海如静知华信息科技有限公司")).andExpect(jsonPath("$.data.website").value("https://www.zhuatech.cn/"));mvc.perform(get("/api/dashboard")).andExpect(status().isUnauthorized());mvc.perform(get("/api/catalog").with(httpBasic("operator","operator123"))).andExpect(status().isOk()).andExpect(jsonPath("$.data.modules.length()").value(9));mvc.perform(get("/actuator/health")).andExpect(status().isOk());}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void recordFollowsWorkflowAndWritesAudit() throws Exception {long id=create("UT-DEVOPS-001","状态机验收");mvc.perform(post("/api/records/{id}/actions",id).with(httpBasic("admin","admin123")).contentType(MediaType.APPLICATION_JSON).content("{\"action\":\"APPROVE\",\"remark\":\"越级操作\"}")).andExpect(status().isConflict());mvc.perform(post("/api/records/{id}/actions",id).with(httpBasic("admin","admin123")).contentType(MediaType.APPLICATION_JSON).content("{\"action\":\"SUBMIT\",\"remark\":\"第一步\"}")).andExpect(status().isOk()).andExpect(jsonPath("$.data.status").value("待审批"));mvc.perform(post("/api/records/{id}/actions",id).with(httpBasic("admin","admin123")).contentType(MediaType.APPLICATION_JSON).content("{\"action\":\"APPROVE\",\"remark\":\"第二步\"}")).andExpect(status().isOk()).andExpect(jsonPath("$.data.status").value("待发布"));mvc.perform(get("/api/admin/audit-logs").with(httpBasic("admin","admin123"))).andExpect(status().isOk()).andExpect(jsonPath("$.data.length()").isNotEmpty());}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void draftSupportsCrudValidationAndDuplicateProtection() throws Exception {String body=body("UT-DEVOPS-002","待修改记录");long id=idOf(mvc.perform(post("/api/records").with(httpBasic("operator","operator123")).contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk()).andReturn());mvc.perform(put("/api/records/{id}",id).with(httpBasic("operator","operator123")).contentType(MediaType.APPLICATION_JSON).content(body.replace("待修改记录","已修改记录"))).andExpect(status().isOk()).andExpect(jsonPath("$.data.title").value("已修改记录"));mvc.perform(post("/api/records").with(httpBasic("operator","operator123")).contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isConflict());mvc.perform(delete("/api/records/{id}",id).with(httpBasic("operator","operator123"))).andExpect(status().isOk());mvc.perform(post("/api/records").with(httpBasic("operator","operator123")).contentType(MediaType.APPLICATION_JSON).content(body.replace("UT-DEVOPS-002","UT-DEVOPS-BAD").replace("REPOSITORY","UNKNOWN"))).andExpect(status().isBadRequest());}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void searchTimelineCommentsSlaAndCsvWork() throws Exception {long id=create("UT-DEVOPS-OPS","运营检索协作记录");mvc.perform(get("/api/records/search").param("module","REPOSITORY").param("keyword","运营检索").param("page","0").param("size","10").with(httpBasic("operator","operator123"))).andExpect(status().isOk()).andExpect(jsonPath("$.data.total").value(1));mvc.perform(post("/api/records/{id}/comments",id).with(httpBasic("operator","operator123")).contentType(MediaType.APPLICATION_JSON).content("{\"content\":\"已确认处理计划\"}")).andExpect(status().isOk());mvc.perform(get("/api/records/{id}/timeline",id).with(httpBasic("operator","operator123"))).andExpect(status().isOk()).andExpect(jsonPath("$.data[0].action").value("协作备注"));mvc.perform(get("/api/sla-summary").with(httpBasic("operator","operator123"))).andExpect(status().isOk()).andExpect(jsonPath("$.data.open").isNumber());mvc.perform(get("/api/records/export.csv").param("keyword","运营检索").with(httpBasic("operator","operator123"))).andExpect(status().isOk()).andExpect(header().string("Content-Disposition",containsString("records.csv"))).andExpect(content().string(containsString("UT-DEVOPS-OPS")));}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void adminSettingsAreProtectedAndPersistent() throws Exception {mvc.perform(get("/api/admin/settings").with(httpBasic("operator","operator123"))).andExpect(status().isForbidden());mvc.perform(put("/api/admin/settings").with(httpBasic("admin","admin123")).contentType(MediaType.APPLICATION_JSON).content("{\"acceptanceMode\":\"企业验收\"}")).andExpect(status().isOk()).andExpect(jsonPath("$.data.acceptanceMode").value("企业验收"));}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  private long create(String no,String title)throws Exception{return idOf(mvc.perform(post("/api/records").with(httpBasic("operator","operator123")).contentType(MediaType.APPLICATION_JSON).content(body(no,title))).andExpect(status().isOk()).andReturn());}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  private String body(String no,String title){return "{\"recordNo\":\""+no+"\",\"module\":\"REPOSITORY\",\"title\":\""+title+"\",\"businessParty\":\"上海总部\",\"owner\":\"业务专员\",\"amount\":12800,\"quantity\":3,\"dueDate\":\"2026-09-30\",\"riskLevel\":\"正常\",\"description\":\"验证核心功能、状态控制和审计\"}";}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  private long idOf(MvcResult result)throws Exception{var m=Pattern.compile("\"id\":(\\d+)").matcher(result.getResponse().getContentAsString());Assertions.assertTrue(m.find());return Long.parseLong(m.group(1));}
 }
