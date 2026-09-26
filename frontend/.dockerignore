@@ -1,0 +1,11 @@
+# Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/
+# Keep host-specific dependencies and generated assets out of Linux image builds.
+node_modules
+dist
+coverage
+.vite
+.npm
+*.log
+.DS_Store
+.idea
+.vscode

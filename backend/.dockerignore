@@ -1,0 +1,8 @@
+# Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/
+# Exclude host build outputs and workstation metadata from image contexts.
+target
+logs
+*.log
+.DS_Store
+.idea
+.vscode
